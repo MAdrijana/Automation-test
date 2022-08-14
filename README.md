@@ -16,3 +16,4 @@ Steps to do:
 
 - If you are on Windows, you can run tests with commands above or `python swaglab_test.py edge`
 
+The code is tested on Windows 10, and MacBook Pro 
