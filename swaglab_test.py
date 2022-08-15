@@ -32,21 +32,24 @@ def start_test(driver):
     :param driver: instance of web driver
     :return: None
     """
-    # We're enlarging the Chrome window, and go to site SWAGLABS
+    
     driver.maximize_window()
     driver.implicitly_wait(2)
     driver.get("https://www.saucedemo.com/")
 
     driver.implicitly_wait(2)
-    # In this step, we log in to the site using the provided username and password data
-    Username = driver.find_element(By.ID, 'user-name')
-    Username.click()
-    Username.send_keys("standard_user")
-    Password = driver.find_element(By.ID, "password")
-    Password.click()
-    Password.send_keys("secret_sauce")
+
+def log_in(driver):
+
+    username = driver.find_element(By.ID, 'user-name')
+    username.click()
+    username.send_keys("standard_user")
+    password = driver.find_element(By.ID, "password")
+    password.click()
+    password.send_keys("secret_sauce")
     driver.find_element(By.ID, "login-button").click()
 
+def add_to_cart(driver):
     # We are adding an item to the cart
     driver.find_element(By.ID, "add-to-cart-test.allthethings()-t-shirt-(red)").click()
     driver.implicitly_wait(2)
@@ -82,20 +85,21 @@ def start_test(driver):
     else:
         print("Cart badge is not updated correctly, is not present a 1 item")
 
+def complete_the_order(driver):
     # Continue to the Checkout page and Complete the checkout form
     driver.find_element(By.ID, "checkout").click()
 
-    FirstName = driver.find_element(By.ID, "first-name")
-    FirstName.click()
-    FirstName.send_keys("Petar")
+    firstName = driver.find_element(By.ID, "first-name")
+    firstName.click()
+    firstName.send_keys("Petar")
 
-    LastName = driver.find_element(By.ID, "last-name")
-    LastName.click()
-    LastName.send_keys("Petrovic")
+    lastName = driver.find_element(By.ID, "last-name")
+    lastName.click()
+    lastName.send_keys("Petrovic")
 
-    PostalCode = driver.find_element(By.ID, "postal-code")
-    PostalCode.click()
-    PostalCode.send_keys("Petar12")
+    postalCode = driver.find_element(By.ID, "postal-code")
+    postalCode.click()
+    postalCode.send_keys("Petar12")
 
     # We confirm that the data entered is correct, and completing a purchase.
     driver.find_element(By.ID, "continue").click()
@@ -105,9 +109,10 @@ def start_test(driver):
     Completed_text=driver.find_element(By.CLASS_NAME, "complete-text")
     if Completed_text.text=="Your order has been dispatched, and will arrive just as fast as the pony can get there!":
         print("The order is completed successfully.")
+        driver.save_screenshot("ss.png")
     else:
         print("The order is not completed successfully.")
-
+    
     # We're closing the site
     driver.close()
 
@@ -119,4 +124,6 @@ if __name__ == '__main__':
     web_driver = args.web_driver
     driver = __create_driver(web_driver)
     start_test(driver)
-
+    log_in(driver)
+    add_to_cart(driver)
+    complete_the_order(driver)
