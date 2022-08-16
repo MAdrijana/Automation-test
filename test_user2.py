@@ -1,11 +1,8 @@
 import os
 import platform
 import argparse
-from pyclbr import Class
-from pydoc import classname
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.chrome.options import Options
 
 def __create_driver(web_driver):
     """
